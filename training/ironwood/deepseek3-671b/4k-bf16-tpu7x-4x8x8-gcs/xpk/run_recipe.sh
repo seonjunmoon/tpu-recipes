@@ -30,6 +30,8 @@ export ZONE=""
 export BASE_OUTPUT_DIR=""
 export WORKLOAD_IMAGE=""
 export WORKLOAD_NAME="$(printf "%.26s" "${USER//_/-}-deepseekv3-671b-4096-fsdp")-$(date +%Y%m%d-%H%M)"
+export DATASET_BUCKET=""
+export DATASET_BUCKET_MOUNTED_PATH=""
 
 # XLA Flags
 XLA_FLAGS=" \
@@ -101,11 +103,18 @@ cost_estimate_flops_fwd=5000000000000 \
 cost_estimate_flops_bwd=5000000000000 \
 float32_weight_sum=False \
 use_tokamax_gmm=True \
-tokenizer_path=assets/tokenizer.mistral-v3 \
-dataset_type=synthetic \
-dataset_path=gs://max-datasets-rogue \
-enable_checkpointing=False \
+tokenizer_path='deepseek-ai/DeepSeek-V3-Base' \
+tokenizer_type=huggingface \
+enable_checkpointing=True \
+async_checkpointing=true \
+enableSingleReplicaCkptRestoring=true \
+checkpointStorageTargetDataFileSizeBytes=209715200 \
+dataset_type='grain' \
+grain_file_type=arrayrecord \
+grain_train_files=${DATASET_BUCKET_MOUNTED_PATH} \
+grain_worker_count=2 \
 steps=30 \
+checkpoint_period=25 \
 base_output_directory=${BASE_OUTPUT_DIR} \
 run_name=${WORKLOAD_NAME}"
 
@@ -120,6 +129,7 @@ xpk workload create \
   --docker-image="${WORKLOAD_IMAGE}" \
   --enable-debug-logs \
   --workload="${WORKLOAD_NAME}" \
+  --storage="${DATASET_BUCKET}" \
   --command="set -e && export ENABLE_PATHWAYS_PERSISTENCE='1' && \
 export LIBTPU_INIT_ARGS='${XLA_FLAGS}' && \
 export JAX_PLATFORMS='tpu,cpu' && export ENABLE_PJRT_COMPATIBILITY='true' && \
