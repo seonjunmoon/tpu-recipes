@@ -35,6 +35,7 @@ export DATASET_BUCKET_MOUNTED_PATH=""
 
 # XLA Flags
 XLA_FLAGS=" \
+  --xla_tpu_dvfs_p_state=3 \
   --xla_tpu_scoped_vmem_limit_kib=65536 \
   --xla_tpu_bf16_emission_mode=NATIVE_EMISSION \
   --xla_tpu_enable_sparse_core_reduce_scatter_v2=true \
@@ -86,7 +87,7 @@ use_random_routing=True \
 megablox=True \
 sparse_matmul=True \
 use_custom_sort_vjp=True \
-fsdp_shard_on_exp=False \
+shard_exp_on_fsdp=False \
 use_2d_fsdp_sharding=True \
 sa_use_fused_bwd_kernel=True \
 sa_block_q=2048 \
@@ -106,6 +107,7 @@ use_tokamax_gmm=True \
 tokenizer_path='deepseek-ai/DeepSeek-V3-Base' \
 tokenizer_type=huggingface \
 enable_checkpointing=True \
+checkpoint_storage_concurrent_gb=400 \
 async_checkpointing=true \
 enableSingleReplicaCkptRestoring=true \
 checkpointStorageTargetDataFileSizeBytes=209715200 \
