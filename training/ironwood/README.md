@@ -5,7 +5,7 @@ The training recipes contained in this folder are optimized for Ironwood TPU. He
 | <div style="width:100px;">Model ID</div> | Number of chips | GBS | Sequence length | Precision | Step time (seconds) | TFLOPs/sec/chip | Tokens/sec/chip |
 |-----------------|--------------------|--------------|--------------------------|--------------------|-------------|--------------|-----------------------|
 | deepseek-v3     | 128                | 2048         | 4096                     | bf16               | 27.02       | 607.53       | 2,425.75              |
-| deepseek-v3     | 128                | 2048         | 4096                     | fp8_full           | 22.83       | 718.57       | 2,869.59              |
+| deepseek-v3     | 128                | 2048         | 4096                     | fp8_full           | 22.47       | 730.60       | 2,917.15              |
 | deepseek-v3     | 256                | 4096         | 4096                     | bf16               | 26.79       | 612.66       | 2,446.25              |
 | deepseek-v3     | 256                | 4096         | 4096                     | fp8_full           | 22.08       | 743.46       | 2,968.49              |
 | gpt-oss-120b    | 64                 | 1280         | 8192                     | bf16               | 17.10       | 330.25       | 9,581.66              |
@@ -20,3 +20,4 @@ The training recipes contained in this folder are optimized for Ironwood TPU. He
 | llama3.1-70b    | 256                | 64           | 131072                   | fp8_full           | 31.47       | 970.72       | 1,041.05              |
 | qwen3-235b-a22b | 256                | 8192         | 4096                     | bf16               | 31.58       | 615.69       | 4,150.78              |
 | qwen3-235b-a22b | 256                | 8192         | 4096                     | fp8_full           | 27.67       | 702.60       | 4,736.72              |
+| wan2.1-14b    | 64                   | 32           | 75600                    | bf16               | 24.58       | 209.55       | N/A                   |
